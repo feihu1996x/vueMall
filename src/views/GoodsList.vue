@@ -1,0 +1,128 @@
+<template>
+    <div>
+        <nav-header></nav-header>
+        <nav-bread>
+            <span slot="bread">Goods</span>
+        </nav-bread>
+        <div class="accessory-result-page accessory-page">
+        <div class="container">
+            <div class="filter-nav">
+            <span class="sortby">Sort by:</span>
+            <a href="javascript:void(0)" class="default cur">Default</a>
+            <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+            <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+            </div>
+            <div class="accessory-result">
+            <!-- filter -->
+            <div class="filter stopPop" id="filter">
+                <dl class="filter-price">
+                <dt>Price:</dt>
+                <dd><a href="javascript:void(0)">All</a></dd>
+                <dd>
+                    <a href="javascript:void(0)">0 - 100</a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0)">100 - 500</a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0)">500 - 1000</a>
+                </dd>
+                <dd>
+                    <a href="javascript:void(0)">1000 - 2000</a>
+                </dd>
+                </dl>
+            </div>
+
+            <!-- search result accessories list -->
+            <div class="accessory-list-wrap">
+                <div class="accessory-list col-4">
+                <ul>
+                    <li>
+                    <div class="pic">
+                        <a href="#"><img src="/static/1.jpg" alt=""></a>
+                    </div>
+                    <div class="main">
+                        <div class="name">XX</div>
+                        <div class="price">999</div>
+                        <div class="btn-area">
+                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        </div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="pic">
+                        <a href="#"><img src="/static/2.jpg" alt=""></a>
+                    </div>
+                    <div class="main">
+                        <div class="name">XX</div>
+                        <div class="price">1000</div>
+                        <div class="btn-area">
+                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        </div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="pic">
+                        <a href="#"><img src="/static/3.jpg" alt=""></a>
+                    </div>
+                    <div class="main">
+                        <div class="name">XX</div>
+                        <div class="price">500</div>
+                        <div class="btn-area">
+                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        </div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="pic">
+                        <a href="#"><img src="/static/4.jpg" alt=""></a>
+                    </div>
+                    <div class="main">
+                        <div class="name">XX</div>
+                        <div class="price">2499</div>
+                        <div class="btn-area">
+                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>   
+        <nav-footer></nav-footer>
+    </div>
+</template>
+
+<style scope>
+
+</style>
+
+<script>
+    /* 
+        引入静态样式
+    */
+    import './../assets/css/base.css';
+    import './../assets/css/product.css';
+    import './../assets/css/login.css';
+
+    /*
+        导入子组件
+    */
+    import NavHeader from '@/components/Header';
+    import NavFooter from '@/components/Footer';
+    import NavBread from '@/components/Bread';
+    export default {
+        data(){
+            return {
+                msg: "商品列表页面"        
+            }
+        },
+        components: {
+            NavHeader,
+            NavFooter,
+            NavBread,
+        }
+    }
+</script>
