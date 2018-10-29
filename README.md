@@ -5,6 +5,10 @@
 ## Build Setup
 
 ``` bash
+# 导入原始数据
+mongoimport -d vueMall -c goods --file goods
+mongoimport -d vueMall -c users --file users
+
 # install dependencies
 npm install
 
