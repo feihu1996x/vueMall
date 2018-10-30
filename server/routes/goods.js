@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var GoodsModel = require('./../models/Goods');
+var UserModel = require('./../models/User');
 
 router.get('/list', (req, res, next)=>{
     let page = parseInt(req.param("page"));
@@ -41,6 +42,84 @@ router.get('/list', (req, res, next)=>{
                 data: doc
             });
         }
+    });
+});
+
+router.post('/addCart', (req, res, next)=>{
+    let userId = '100000077';
+    let productId = req.body.productId;
+    UserModel.findOne({userId:userId}, (err1, userDoc)=>{
+        if(err1){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err1.message,
+                data:[]
+            });
+        }else{
+            if(userDoc){
+                let goodsItem = '';
+                userDoc.cartList.forEach((item)=>{
+                    if(productId==item.productId){
+                        goodsItem = item;
+                        item.productNum++;
+                    }
+                });
+                if(!goodsItem){
+                    GoodsModel.findOne({productId}, (err2, goodsDoc)=>{
+                        if(err2){
+                            res.json({
+                                code: 1,
+                                count: 0,
+                                msg: err2.message,
+                                data:[]
+                            });                        
+                        }else{
+                            if(goodsDoc){
+                                goodsDoc.productNum = 1;
+                                goodsDoc.checked = 1;
+                                userDoc.cartList.push(goodsDoc);
+                                userDoc.save((err3, doc3)=>{
+                                    if(err3){
+                                        res.json({
+                                            code: 1,
+                                            count: 0,
+                                            msg: err3.message,
+                                            data:[]
+                                        });                                           
+                                    }else{
+                                        res.json({
+                                            code: 0,
+                                            count: doc3.length,
+                                            msg: "操作成功~",
+                                            data: doc3
+                                        });                                  
+                                    }
+                                });
+                            }
+                        }
+                    });                    
+                }else{
+                    userDoc.save((err3, doc3)=>{
+                        if(err3){
+                            res.json({
+                                code: 1,
+                                count: 0,
+                                msg: err3.message,
+                                data:[]
+                            });                                           
+                        }else{
+                            res.json({
+                                code: 0,
+                                count: doc3.length,
+                                msg: "操作成功~",
+                                data:doc3
+                            });                                  
+                        }
+                    });                    
+                }
+            }
+        }        
     });
 });
 
