@@ -427,6 +427,9 @@
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
+  -webkit-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .filter-nav .filterby {
@@ -478,6 +481,9 @@
 .icon-arrow-short {
   width: 11px;
   height: 11px;
+  -webkit-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;  
 }
 
 .page-title-accessory {
