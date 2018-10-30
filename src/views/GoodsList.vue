@@ -170,7 +170,7 @@
                     productId
                 }).then((response)=>{
                     let res = response.data;
-                    if(0==res.code){
+                    if(0 == res.code){
                         alert(res.msg);
                     }else{
                         alert(res.msg);

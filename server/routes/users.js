@@ -25,7 +25,7 @@ router.post('/login', (req, res, next) => {
                 res.cookie("userId", userDoc.userId, {
                     path: "/",
                     maxAge: 1000*60*60,
-                });
+                });     
                 // req.session.user = userDoc;
                 res.json({
                     code: 0,
@@ -43,6 +43,58 @@ router.post('/login', (req, res, next) => {
             }
         }
     });
+});
+
+router.post("/logout", (req, res, next)=>{
+    res.cookie("userId", "", {
+        path: "/",
+        maxAge: -1,
+    });
+    res.json({
+        code: 0,
+        count: 0,
+        msg: "操作成功~",
+        data: [],
+    });
+});
+
+router.get("/checkLogin", (req, res, next)=>{
+    let userId = req.cookies.userId;
+    if(userId){
+        UserModel.findOne({userId}, (err, userDoc)=>{
+            if(err){
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: err.messages,
+                    data: []
+                });
+            }else{
+                if(userDoc){
+                    res.json({
+                        code: 0,
+                        count: 1,
+                        msg: "操作成功~",
+                        data: userDoc
+                    });
+                }else{
+                    res.json({
+                        code: 1,
+                        count: 0,
+                        msg: "用户不存在～",
+                        data: []                        
+                    });                    
+                }
+            }
+        });
+    }else{
+        res.json({
+            code: 1,
+            count: 0,
+            msg: "用户未登录～",
+            data: []                        
+        });             
+    }
 });
 
 module.exports = router;
