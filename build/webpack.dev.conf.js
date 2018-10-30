@@ -45,14 +45,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         watchOptions: {
             poll: config.dev.poll,
         },
-        before(app) {
-            /*
-                mock数据接口定义
-            */
-            app.get('/goods/list', (req, res, next) => {
-                res.json(goodsData);
-            })
-        }
+        // before(app) {
+        //     /*
+        //         mock数据接口定义
+        //     */
+        //     app.get('/goods/list', (req, res, next) => {
+        //         res.json(goodsData);
+        //     })
+        // }
     },
     plugins: [
         new webpack.DefinePlugin({
