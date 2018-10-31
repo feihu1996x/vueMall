@@ -127,4 +127,62 @@ router.get("/cartList", (req, res, next)=>{
     });
 });
 
+router.post("/delCart", (req, res, next)=>{
+    let userId = req.cookies.userId;
+    let productId = req.body.productId;
+    UserModel.update({userId},{
+        $pull: {
+            "cartList": {
+                productId
+            }
+        }
+    }, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            res.json({
+                code: 0,
+                count: 1,
+                msg: "操作成功~",
+                data: userDoc
+            });
+        }
+    });
+});
+
+router.post("/cartEdit", (req, res, next)=>{
+    let userId = req.cookies.userId,
+        productId = req.body.productId,
+        productNum = req.body.productNum,
+        checked = req.body.checked;
+    UserModel.update({
+        "userId": userId,
+        "cartList.productId": productId,
+    }, {
+        "cartList.$.productNum": productNum,
+        "cartList.$.checked": checked,
+    }, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            res.json({
+                code: 0,
+                count: 1,
+                msg: "操作成功～",
+                data: userDoc
+            });
+        }
+    });
+});
+
 module.exports = router;

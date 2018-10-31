@@ -2,7 +2,9 @@
     <div class="nav-breadcrumb-wrap">
         <div class="container">
             <nav class="nav-breadcrumb">
-            <a href="/">Home</a>
+            <router-link :to="{name: 'GoodsList'}">
+                Home
+            </router-link>
             <slot name="bread"></slot>
             </nav>
         </div>

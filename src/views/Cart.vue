@@ -82,9 +82,9 @@
               <div class="item-quantity">
                 <div class="select-self select-self-open">
                   <div class="select-self-area">
-                    <a class="input-sub">-</a>
+                    <a class="input-sub" @click="editCart('minus', item)">-</a>
                     <span class="select-ipt">{{item.productNum}}</span>
-                    <a class="input-add">+</a>
+                    <a class="input-add" @click="editCart('add', item)">+</a>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,7 @@
             </div>
             <div class="cart-tab-5">
               <div class="cart-item-opration">
-                <a href="javascript:;" class="item-edit-btn">
+                <a href="javascript:;" class="item-edit-btn" @click="delCartConfirm(item)">
                   <svg class="icon icon-del">
                     <use xlink:href="#icon-del"></use>
                   </svg>
@@ -129,6 +129,15 @@
     </div>
   </div>
 </div>
+<modal :mdShow="modalConfirm" @close="closeModal">
+    <p slot="message">
+        你确认要删除此条数据吗？
+    </p>
+    <div slot="btnGroup">
+        <a class="btn btn--m" href="javascript:void();" @click="delCart">确认</a>
+        <a class="btn btn--m" href="javascript:void();" @click="modalConfirm=false">关闭</a>
+    </div>
+</modal>
 <nav-footer></nav-footer>
 </div>    
 </template>
@@ -168,7 +177,9 @@
         data(){
             return {
                 msg: "购物车页面",
-                cartList: []
+                cartList: [],
+                modalConfirm: false,
+                delItem: null,
             }
         },
         mounted(){
@@ -186,6 +197,46 @@
                     let res = response.data;
                     if(0 == res.code){
                         this.cartList = res.data;
+                    }
+                });
+            },
+            closeModal(){
+                this.modalConfirm = false;
+            },
+            delCartConfirm(item){
+                this.modalConfirm = true;
+                this.delItem = item;
+            },
+            delCart(){
+                axios.post("/users/delCart", {
+                    productId: this.delItem.productId
+                }).then((response)=>{
+                    let res = response.data;
+                    if(0 == res.code){
+                        this.modalConfirm = false;
+                        this.init();
+                    }
+                });
+            },
+            editCart(flag, item){
+                if("add" == flag){
+                    item.productNum++;
+                }else if("minus" == flag){
+                    if(item.productNum<=1){
+                        return;
+                    }
+                    item.productNum--;
+                }else{
+                    item.checked = item.checked=="1"?"0":"1";
+                }
+                axios.post("/users/cartEdit", {
+                    productId: item.productId,
+                    productNum: item.productNum,
+                    checked: item.checked
+                }).then((response)=>{
+                    let res = response.data;
+                    if(0 == res.code){
+
                     }
                 });
             }
