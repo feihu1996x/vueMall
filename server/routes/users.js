@@ -185,4 +185,49 @@ router.post("/cartEdit", (req, res, next)=>{
     });
 });
 
+router.post("/editCheckAll", (req, res, next)=>{
+    let userId = req.cookies.userId,
+        checkAll = req.body.checkAll;
+    UserModel.findOne({userId},(err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            if(userDoc){
+                userDoc.cartList.forEach((item)=>{
+                    item.checked = checkAll?"1":"0";
+                });
+                userDoc.save((err, userDoc)=>{
+                    if(err){
+                        res.json({
+                            code: 1,
+                            count: 0,
+                            msg: err.message,
+                            data: []
+                        });                        
+                    }else{
+                        res.json({
+                            code: 0,
+                            count: 1,
+                            msg: "操作成功~",
+                            data: userDoc
+                        });
+                    }
+                });
+            }else{
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: "用户不存在~",
+                    data: []
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;

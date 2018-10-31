@@ -62,7 +62,7 @@
           <li v-for="item in cartList">
             <div class="cart-tab-1">
               <div class="cart-item-check">
-                <a href="javascipt:;" class="checkbox-btn item-check-btn" v-bind:class="{'check':item.checked=='1'}" @click="editCart('checked',item)">
+                <a href="javascript:void();" class="checkbox-btn item-check-btn" v-bind:class="{'check':item.checked=='1'}" @click="editCart('checked',item)">
                   <svg class="icon icon-ok">
                     <use xlink:href="#icon-ok"></use>
                   </svg>
@@ -109,8 +109,8 @@
       <div class="cart-foot-inner">
         <div class="cart-foot-l">
           <div class="item-all-check">
-            <a href="javascipt:;">
-                  <span class="checkbox-btn item-check-btn">
+            <a href="javascript:void();" @click="toggleCheckAll">
+                  <span class="checkbox-btn item-check-btn" v-bind:class="{'check': checkAllFlag}">
                       <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
                   </span>
               <span>Select all</span>
@@ -119,7 +119,7 @@
         </div>
         <div class="cart-foot-r">
           <div class="item-total">
-            Item total: <span class="total-price">500</span>
+            Item total: <span class="total-price">{{totalPrice}}</span>
           </div>
           <div class="btn-wrap">
             <a class="btn btn--red">Checkout</a>
@@ -185,6 +185,29 @@
         mounted(){
             this.init();
         },
+        computed: {
+          checkAllFlag(){
+            return this.checkedCount == this.cartList.length;
+          },
+          checkedCount(){
+            let count = 0;
+            this.cartList.forEach((item)=>{
+              if("1" == item.checked){
+                count++;
+              }
+            });
+            return count;
+          },
+          totalPrice(){
+            let amount = 0;
+            this.cartList.forEach((item)=>{
+              if("1" == item.checked){
+                amount += parseFloat(item.salePrice) * parseInt(item.productNum);
+              }
+            });
+            return amount;
+          }
+        },
         components: {
             NavHeader,
             NavFooter,
@@ -239,6 +262,20 @@
 
                     }
                 });
+            },
+            toggleCheckAll(){
+              let flag= !this.checkAllFlag;
+              this.cartList.forEach((item)=>{
+                item.checked = flag?"1":"0";
+              });
+              axios.post("/users/editCheckAll", {
+                checkAll: flag,
+              }).then((response)=>{
+                let res = response.data;
+                if(0 == res.code){
+
+                }
+              });
             }
         }     
     }
