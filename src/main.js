@@ -5,12 +5,14 @@ import App from './App'
 import router from './router'
 import VueLazyLoad from 'vue-lazyload';
 import InfiniteScroll from 'vue-infinite-scroll';
+import {currency} from './util/currency';
 
 import './assets/css/base.css'
 import './assets/css/checkout.css'
 import './assets/css/product.css'
 
 Vue.config.productionTip = false
+Vue.filter("currency",currency);
 Vue.use(VueLazyLoad, {
     loading: "/static/loading-svg/loading-bars.svg",
 });
