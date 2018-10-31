@@ -97,4 +97,34 @@ router.get("/checkLogin", (req, res, next)=>{
     }
 });
 
+router.get("/cartList", (req, res, next)=>{
+    let userId = req.cookies.userId;
+    UserModel.findOne({userId}, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            if(userDoc){
+                res.json({
+                    code: 0,
+                    count: userDoc.cartList.length,
+                    msg: "操作成功~",
+                    data: userDoc.cartList
+                });
+            }else{
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: "用户不存在~",
+                    data: []
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;
