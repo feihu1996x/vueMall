@@ -121,23 +121,6 @@
           </div>
         </div>
       </div>
-      <modal :mdShow="isMdShow" @close="closeModal">
-        <p slot="message">
-          您是否确认要删除此地址?
-        </p>
-        <div slot="btnGroup">
-            <a class="btn btn--m" href="javascript:;" @click="delAddress">确认</a>
-            <a class="btn btn--m btn--red" href="javascript:;" @click="isMdShow=false">取消</a>
-        </div>
-      </modal>
-      <modal :mdShow="isMdShow2" @close="isMdShow2=false">
-        <p slot="message">
-          地址列表至少需要有一条数据,已无法继续删除.
-        </p>
-        <div slot="btnGroup">
-          <a class="btn btn--m btn--red" href="javascript:;" @click="isMdShow2=false">好的</a>
-        </div>
-      </modal>
       <nav-footer></nav-footer>
     </div>
 </template>
@@ -183,6 +166,13 @@
               this.addressList = res.data;
             }
           });
+        },
+        expand(){
+          if(3==this.limit){
+            this.limit = this.addressList.length;
+          }else{
+            this.limit = 3;
+          }
         }
       }
   }
