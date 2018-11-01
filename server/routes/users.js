@@ -426,4 +426,62 @@ router.post("/payMent", (req, res, next)=>{
     });
 });
 
+router.get("/orderDetail", (req, res, next)=>{
+    let userId = req.cookies.userId,
+         orderId = req.param("orderId");
+    UserModel.findOne({
+        userId
+    },(err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: ''
+            });
+        }else{
+            if(userDoc){
+                let orderList = userDoc.orderList;
+                if(orderList.length>0){
+                    let order = null;
+                    orderList.forEach((item)=>{
+                        if(orderId == item.orderId){
+                            order = item;
+                        }
+                    });
+                    if(order){
+                        res.json({
+                            code: 0,
+                            count: 1,
+                            msg: "操作成功~",
+                            data: order
+                        });
+                    }else{
+                        res.json({
+                            code: 1,
+                            count: 0,
+                            msg: "订单信息不存在~",
+                            data: []
+                        });                        
+                    }
+                }else{
+                    res.json({
+                        code: 1,
+                        count: 0,
+                        msg: "订单信息不存在~",
+                        data: []
+                    });
+                }
+            }else{
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: "用户不存在~",
+                    data: []
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;
