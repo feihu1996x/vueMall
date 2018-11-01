@@ -323,4 +323,34 @@ router.post("/setDefaultAddress", (req, res, next)=>{
     }
 });
 
+router.post("/delAddress", (req, res, next)=>{
+    let userId = req.cookies.userId,
+         addressId = req.body.addressId;
+    UserModel.update({
+        userId
+    }, {
+        $pull: {
+            addressList: {
+                addressId: addressId
+            }
+        }
+    }, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            res.json({
+                code: 0,
+                count: 1,
+                msg: "操作成功~",
+                data: userDoc
+            });
+        }
+    });
+});
+
 module.exports = router;
