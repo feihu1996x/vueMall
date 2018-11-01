@@ -230,4 +230,36 @@ router.post("/editCheckAll", (req, res, next)=>{
     });
 });
 
+router.get("/addressList", (req, res, next)=>{
+    let userId = req.cookies.userId;
+    UserModel.findOne({
+        userId
+    }, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            if(userDoc){
+                res.json({
+                    code: 0,
+                    count: userDoc.addressList.length,
+                    msg: "操作成功~",
+                    data: userDoc.addressList
+                });
+            }else{
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: "用户不存在~",
+                    data: []
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;
