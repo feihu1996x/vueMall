@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var UserModel = require('./../models/User');
+var common = require('./../utils/common');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -349,6 +350,78 @@ router.post("/delAddress", (req, res, next)=>{
                 msg: "操作成功~",
                 data: userDoc
             });
+        }
+    });
+});
+
+router.post("/payMent", (req, res, next)=>{
+    let userId = req.cookies.userId,
+         orderTotal = req.body.orderTotal,
+         addressId = req.body.addressId;
+    UserModel.findOne({
+        userId
+    }, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1,
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            if(!userDoc){
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: "用户不存在~",
+                    data: []
+                });
+            }else{
+                let address = null,
+                     goodsList = [];
+                userDoc.addressList.forEach((item)=>{
+                    if(addressId == item.addressId){
+                        address = item;
+                    }
+                });
+                userDoc.cartList.forEach((item)=>{
+                    if("1" == item.checked){
+                        goodsList.push(item);
+                    }
+                });
+                let platForm = '622';
+                let r1 = Math.floor(Math.random()*10);
+                let r2 = Math.floor(Math.random()*10);
+                let sysDate = new Date().Format("yyyyMMddhhmmss");
+                let createdTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
+                let orderId = platForm + r1 + sysDate + r2 + userId;
+                let order = {
+                    orderId: orderId,
+                    createdTime: createdTime,
+                    orderTotal: orderTotal,
+                    addressInfo: address,
+                    goodsList: goodsList,
+                    orderStatus: '1'
+                };
+                userDoc.orderList.push(order);
+                userDoc.save((err, doc)=>{
+                    if(err){
+                        res.json({
+                            code: 1,
+                            count: 0,
+                            msg: err.message,
+                            data: []
+                        });
+                    }else{
+                        res.json({
+                            code: 0,
+                            count: 1,
+                            msg: "操作成功~",
+                            data: order,
+                        });
+                    }
+                });
+            }
         }
     });
 });

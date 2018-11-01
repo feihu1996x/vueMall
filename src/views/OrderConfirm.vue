@@ -100,7 +100,7 @@
               </li>
               <li>
                 <span>Discount:</span>
-                <span>{{discount|currency('$')}}</span>
+                <span>{{discount | currency('$')}}</span>
               </li>
               <li>
                 <span>Tax:</span>
@@ -165,6 +165,24 @@
                       this.orderTotal = this.subTotal + this.shipping - this.discount + this.tax;
                   }
               });
+          },
+          payMent(){
+                let addressId = this.$route.query.addressId,
+                    orderTotal = this.orderTotal;
+                axios.post("/users/payMent", {
+                    addressId,
+                    orderTotal
+                }).then((response)=>{
+                    let res = response.data;
+                    if(0 == res.code){
+                        this.$router.push({
+                            name: 'OrderSuccess',
+                            query: {
+                                orderId: res.data.orderId,
+                            }
+                        });
+                    }
+                });
           }
       }
   }
