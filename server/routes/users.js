@@ -262,4 +262,65 @@ router.get("/addressList", (req, res, next)=>{
     });
 });
 
+router.post("/setDefaultAddress", (req, res, next)=>{
+    let userId = req.cookies.userId,
+         addressId = req.body.addressId;
+    if(!addressId){
+        res.json({
+            code: 1,
+            count: 0,
+            msg: '操作失败~',
+            data: []
+        });
+    }else{
+        UserModel.findOne({
+            userId
+        }, (err, userDoc)=>{
+            if(err){
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: err.message,
+                    data: []
+                });
+            }else{
+                if(!userDoc){
+                    res.json({
+                        code: 1,
+                        count: 0,
+                        msg: "操作失败～",
+                        data: []
+                    });
+                }else{
+                    let addressList = userDoc.addressList;
+                    addressList.forEach((item)=>{
+                        if(addressId == item.addressId){
+                            item.isDefault = true;
+                        }else{
+                            item.isDefault = false;
+                        }
+                    });
+                    userDoc.save((err, userDoc)=>{
+                        if(err){
+                            res.json({
+                                code: 1,
+                                count: 0,
+                                msg: err.message,
+                                data: []
+                            });
+                        }else{
+                            res.json({
+                                code: 0,
+                                count: 1,
+                                msg: "操作成功~",
+                                data: userDoc
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }
+});
+
 module.exports = router;

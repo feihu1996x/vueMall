@@ -173,6 +173,16 @@
           }else{
             this.limit = 3;
           }
+        },
+        setDefault(addressId){
+          axios.post("/users/setDefaultAddress",{
+            addressId
+          }).then((response)=>{
+            let res = response.data;
+            if(0 == res.code){
+              this.init();
+            }
+          });
         }
       }
   }
