@@ -16,7 +16,7 @@
         </div>
 
         <div class="order-create">
-          <div class="order-create-pic"><img src="/static/ok-2.png" alt=""></div>
+          <div class="order-create-pic"><img :src="STATIC_FILE_URL_PREFIX + '/ok-2.png'" alt=""></div>
           <div class="order-create-main">
             <h3>Congratulations! <br>Your order is under processing!</h3>
             <p>
@@ -42,9 +42,11 @@
     import NavFooter from '@/components/Footer';
     import NavBread from '@/components/Bread';
     import axios from '@/axios';
+    import {STATIC_FILE_URL_PREFIX} from '@/config';
     export default{
         data(){
             return{
+                STATIC_FILE_URL_PREFIX,
                 orderId:'',
                 orderTotal:0
             }

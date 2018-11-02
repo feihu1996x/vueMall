@@ -23,7 +23,7 @@
         <div class="navbar">
             <div class="navbar-left-container">
             <router-link :to="{name: 'GoodsList'}">
-              <img class="navbar-brand-logo" src="/static/logo.png">
+              <img class="navbar-brand-logo" :src="STATIC_FILE_URL_PREFIX + '/logo.png'">
             </router-link>
             </div>
             <div class="navbar-right-container" style="display: flex;">
@@ -151,9 +151,11 @@
 import './../assets/css/login.css';
 import axios from '@/axios';
 import {mapState} from 'vuex';
+import {STATIC_FILE_URL_PREFIX} from '@/config';
 export default {
     data(){
         return {
+            STATIC_FILE_URL_PREFIX,
             msg: "Header组件",
             userName: 'admin',
             userPwd: '123456',

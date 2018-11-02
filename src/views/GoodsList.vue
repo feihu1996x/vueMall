@@ -33,7 +33,7 @@
                         <li v-for="(item, index) in goodsList">
                             <div class="pic">
                                 <!--<a href="#"><img v-bind:src="item.prodcutImage" alt=""></a>-->
-                                <a href="#"><img v-lazy="'/static/'+item.productImage" alt=""></a>
+                                <a href="#"><img v-lazy="STATIC_FILE_URL_PREFIX + '/'+item.productImage" alt=""></a>
                             </div>
                             <div class="main">
                                 <div class="name">{{item.productName}}</div>
@@ -90,9 +90,11 @@
     import NavBread from '@/components/Bread';
     import Modal from '@/components/Modal';
     import axios from '@/axios';
+    import {STATIC_FILE_URL_PREFIX} from '@/config';
     export default {
         data(){
             return {
+                STATIC_FILE_URL_PREFIX,
                 msg: "商品列表页面",
                 goodsList: [],
                 priceFilter:[

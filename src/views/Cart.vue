@@ -69,7 +69,7 @@
                 </a>
               </div>
               <div class="cart-item-pic">
-                <img v-bind:src="'/static/'+item.productImage">
+                <img v-bind:src="STATIC_FILE_URL_PREFIX + '/'+item.productImage">
               </div>
               <div class="cart-item-title">
                 <div class="item-name">{{item.productName}}</div>
@@ -173,10 +173,12 @@
     import NavBread from '@/components/Bread';
     import Modal from '@/components/Modal';
     import axios from '@/axios';
+    import {STATIC_FILE_URL_PREFIX} from '@/config';
     // import {currency} from '@/util/currency';
     export default {
         data(){
             return {
+                STATIC_FILE_URL_PREFIX,
                 msg: "购物车页面",
                 cartList: [],
                 modalConfirm: false,

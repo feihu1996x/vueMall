@@ -58,7 +58,7 @@
               <li v-for="item in cartList" v-if="item.checked=='1'">
                 <div class="cart-tab-1">
                   <div class="cart-item-pic">
-                    <img v-lazy="'/static/'+item.productImage" :alt="item.productName">
+                    <img v-lazy="STATIC_FILE_URL_PREFIX + '/' + item.productImage" :alt="item.productName">
                   </div>
                   <div class="cart-item-title">
                     <div class="item-name">{{item.productName}}</div>
@@ -132,9 +132,11 @@
   import NavFooter from '@/components/Footer';
   import NavBread from '@/components/Bread';
   import axios from '@/axios';
+  import {STATIC_FILE_URL_PREFIX} from '@/config';
   export default{
       data(){
           return{
+              STATIC_FILE_URL_PREFIX,
               shipping:100,
               discount:200,
               tax:400,
