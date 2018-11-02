@@ -85,7 +85,7 @@ a {
   height: 29px;
   margin: 6px 0 0 14px;
   background-position: 4px 5px;
-  background-image: url("/static/icon.png");
+  background-image: url("static/icon.png");
   background-repeat: no-repeat;
 }
 .regi_form_input .IconPwd {
