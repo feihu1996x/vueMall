@@ -197,7 +197,8 @@
                     let res = response.data;
                     if(0 == res.code){
                         this.mdShowCart = true;
-                        this.notice = res.msg;                        
+                        this.notice = res.msg;             
+                        this.$store.commit("updateCartCount", 1);           
                     }else{
                         this.mdShow = true;
                         this.notice = res.msg;

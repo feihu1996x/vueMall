@@ -484,4 +484,41 @@ router.get("/orderDetail", (req, res, next)=>{
     });
 });
 
+router.get("/getCartCount", (req, res, next)=>{
+    let userId = req.cookies.userId;
+    UserModel.findOne({
+        userId
+    }, (err, userDoc)=>{
+        if(err){
+            res.json({
+                code: 1, 
+                count: 0,
+                msg: err.message,
+                data: []
+            });
+        }else{
+            if(!userDoc){
+                res.json({
+                    code: 1,
+                    count: 0,
+                    msg: "用户不存在~",
+                    data: []
+                });
+            }else{
+                let cartList = userDoc.cartList,
+                     cartCount = 0;
+                cartList.forEach((item)=>{
+                    cartCount += parseInt(item.productNum);
+                });
+                res.json({
+                    code: 0,
+                    count: 1,
+                    msg: "操作成功~",
+                    data: cartCount
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;

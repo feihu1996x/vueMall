@@ -242,6 +242,7 @@
                     if(0 == res.code){
                         this.modalConfirm = false;
                         this.init();
+                        this.$store.commit("updateCartCount", -this.delItem.productNum);
                     }
                 });
             },
@@ -263,7 +264,12 @@
                 }).then((response)=>{
                     let res = response.data;
                     if(0 == res.code){
-
+                        if("add" == flag){
+                          this.$store.commit("updateCartCount", 1);
+                        }
+                        if("minus" == flag){
+                          this.$store.commit("updateCartCount", -1);
+                        }
                     }
                 });
             },
