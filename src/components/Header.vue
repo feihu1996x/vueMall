@@ -207,7 +207,7 @@ export default {
             if(0 == res.code){
               // this.nickName = '';
               this.$store.commit('updateUserInfo', '');
-              this.$store.commit('updateCartCount', 0);
+              this.$store.commit('initCartCount', 0);
             }
           });
         },
