@@ -172,7 +172,7 @@
     import NavFooter from '@/components/Footer';
     import NavBread from '@/components/Bread';
     import Modal from '@/components/Modal';
-    import axios from 'axios';
+    import axios from '@/axios';
     // import {currency} from '@/util/currency';
     export default {
         data(){

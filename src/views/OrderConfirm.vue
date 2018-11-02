@@ -131,7 +131,7 @@
   import NavHeader from '@/components/Header';
   import NavFooter from '@/components/Footer';
   import NavBread from '@/components/Bread';
-  import axios from 'axios';
+  import axios from '@/axios';
   export default{
       data(){
           return{

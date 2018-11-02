@@ -149,7 +149,7 @@
 
 <script>
 import './../assets/css/login.css';
-import axios from 'axios';
+import axios from '@/axios';
 import {mapState} from 'vuex';
 export default {
     data(){
