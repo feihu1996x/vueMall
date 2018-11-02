@@ -41,9 +41,9 @@ app.use((req, res, next) => {
     }
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/goods', goodsRouter);
+// app.use('/', indexRouter);
+app.use(config.URL_PREFIX + '/users', usersRouter);
+app.use(config.URL_PREFIX + '/goods', goodsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -58,7 +58,13 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    // res.render('error');
+    res.json({
+        code: 1,
+        count: 0,
+        msg: "服务器内部错误",
+        data: []
+    });
 });
 
 module.exports = app;
