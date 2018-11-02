@@ -141,7 +141,7 @@ a {
   line-height: 16px;
   height: 16px;
   text-align: left;
-  background: url("/static/icon.png") 0 -100px no-repeat;
+  background: url("static/icon.png") 0 -100px no-repeat;
 }
 .md-content .error-wrap .error-show{
   visibility: visible;
