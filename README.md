@@ -2,6 +2,16 @@
 
 > 使用Vue2.0/Node.js/MongoDB打造的商城系统
 
+## Tech Stack
+
+- HTML/CSS/JavaScript
+- Vue
+- Webpack
+- Node.js/Express
+- MongoDB
+- PM2
+- Nginx
+
 ## Build Setup
 
 ``` bash
@@ -36,4 +46,6 @@ npm install
 npm run start
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Demo Link
+
+[http://dev.feihu1996.cn/vueMall](http://dev.feihu1996.cn/vueMall 'vueMall')
