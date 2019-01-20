@@ -3,7 +3,7 @@ const MONGO_PORT = '27017';
 const MONGO_DB = 'vueMall';
 const MONGOOSE_URL = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
 const URL_PREFIX = "";  // /vueMallApi
-const PORT = 3000;
+const PORT = 8090;
 const IGNORED_CHECKED_URLS = [
     "/users/login",
     "/users/logout",
